@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-transparent: transparent;
+
+  --color-theme-color-default: oklch(0.51 0.21 262.73 / 1);
+  --color-theme-color-hover: oklch(0.36 0.11 266.78 / 1);
+  --color-theme-gradient-start: oklch(0.5 0.21 264.26 / 1);
+  --color-theme-gradient-end: oklch(0.67 0.16 257.73 / 1);
+  --color-theme-paperplane-top: oklch(0.51 0.21 262.73 / 1);
+  --color-theme-paperplane-inner: oklch(0.39 0.16 262.66 / 1);
+  --color-theme-paperplane-outer: oklch(0.32 0.12 262.67 / 1);
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility cta-primary-default {
+  @apply inline-flex justify-center gap-2 rounded-md border-2 px-5 py-3 text-center leading-none text-white transition-all;
+
+  background-color: var(--color-theme-color-default);
+  border-color: var(--color-theme-color-default);
+
+  &:hover {
+    background-color: var(--color-theme-color-hover);
+    border-color: var(--color-theme-color-hover);
+  }
+}
+
+@utility cta-secondary-default {
+  @apply inline-flex justify-center gap-2 rounded-md border-2 border-slate-100 bg-slate-100 px-5 py-3 text-center leading-none text-slate-600 transition-all hover:border-slate-200 hover:bg-slate-200;
+
+  &:hover {
+    color: var(--color-theme-color-hover);
+  }
+}
+
+@utility cta-primary-small {
+  @apply inline-flex justify-center gap-2 rounded-md border-2 px-3 py-2 text-center text-sm leading-none font-semibold text-white transition-all;
+
+  background-color: var(--color-theme-color-default);
+  border-color: var(--color-theme-color-default);
+
+  &:hover {
+    background-color: var(--color-theme-color-hover);
+    border-color: var(--color-theme-color-hover);
+  }
+}
+
+@utility cta-secondary-small {
+  @apply inline-flex justify-center gap-2 rounded-md border-2 border-slate-100 bg-slate-100 px-3 py-2 text-center text-sm leading-none font-semibold text-slate-600 transition-all hover:border-slate-200 hover:bg-slate-200;
+
+  &:hover {
+    color: var(--color-theme-color-hover);
+  }
+}
+
+/* source-sans-pro-300 - latin */
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/fonts/source-sans-pro-v12-latin-300.eot");
+  src:
+    local("Source Sans Pro Light"),
+    local("SourceSansPro-Light"),
+    url("/fonts/source-sans-pro-v12-latin-300.woff2") format("woff2"),
+    url("/fonts/source-sans-pro-v12-latin-300.woff") format("woff"),
+    url("/fonts/source-sans-pro-v12-latin-300.ttf") format("truetype"),
+    url("/fonts/source-sans-pro-v12-latin-300.svg#SourceSansPro") format("svg");
+}
+
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/source-sans-pro-v12-latin-regular.eot");
+  src:
+    local("Source Sans Pro Regular"),
+    local("SourceSansPro-Regular"),
+    url("/fonts/source-sans-pro-v12-latin-regular.woff2") format("woff2"),
+    url("/fonts/source-sans-pro-v12-latin-regular.woff") format("woff"),
+    url("/fonts/source-sans-pro-v12-latin-regular.ttf") format("truetype"),
+    url("/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro")
+      format("svg");
+}
+
+/* source-sans-pro-600 - latin */
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/fonts/source-sans-pro-v12-latin-600.eot");
+  src:
+    local("Source Sans Pro SemiBold"),
+    local("SourceSansPro-SemiBold"),
+    url("/fonts/source-sans-pro-v12-latin-600.woff2") format("woff2"),
+    url("/fonts/source-sans-pro-v12-latin-600.woff") format("woff"),
+    url("/fonts/source-sans-pro-v12-latin-600.ttf") format("truetype"),
+    url("/fonts/source-sans-pro-v12-latin-600.svg#SourceSansPro") format("svg");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-slate-600);
+}

@@ -1,0 +1,122 @@
+---
+import { topLevelNavigation } from "@constants/navigation/topLevelNavigation";
+import DropdownLink from "@elements/DropdownLink.astro";
+import SingleLink from "@elements/SingleLink.astro";
+---
+
+<header
+  class="sticky top-0 right-0 left-0 z-50 flex flex-col justify-center shadow-lg shadow-slate-700/10"
+  id="page-header"
+>
+  <div
+    class="relative flex max-h-screen w-full flex-col items-center justify-between bg-white p-4"
+  >
+    <div
+      class="flex max-h-screen w-full flex-row items-center justify-between xl:container xl:mx-auto"
+    >
+      <ul class="flex justify-center">
+        <li class="flex items-center justify-center lg:hidden">
+          <button
+            data-mobile-menu-button
+            class="flex items-center justify-center"
+          >
+            <i
+              data-mobile-menu-button-icon
+              class="ph-bold ph-list shrink-0 text-2xl text-current"></i>
+          </button>
+        </li>
+      </ul>
+
+      <nav>
+        <ul
+          data-navigation-list
+          class="hidden h-full w-full flex-1 shrink-0 flex-col divide-y overflow-y-auto ring-0 lg:flex lg:w-max lg:flex-row lg:items-center lg:divide-y-0 lg:overflow-visible lg:pb-0"
+        >
+          {
+            topLevelNavigation.map((navItem) => {
+              if (navItem.linkType === "single") {
+                return (
+                  <SingleLink
+                    label={navItem.linkLabel}
+                    href={navItem.linkHref}
+                  />
+                );
+              }
+
+              return <DropdownLink navItem={navItem} />;
+            })
+          }
+        </ul>
+      </nav>
+
+      <ul class="flex flex-1 items-center justify-end gap-2">
+        <li class="hidden sm:flex">
+          <a
+            class="cta-secondary-small"
+            id="demo_btn--page_nav"
+            target="_blank"
+            href="#"
+          >
+            <span class="hidden xl:inline">Demo vereinbaren</span>
+            <span class="xl:hidden">Demo</span>
+          </a>
+        </li>
+
+        <li class="">
+          <a
+            class="cta-primary-small"
+            id="subscribe_btn--page_nav"
+            target="_blank"
+            href="#"
+          >
+            <span class="hidden xl:inline">Kostenlos testen</span>
+            <span class="xl:hidden">Testen</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    let initialWidth = window.innerWidth;
+
+    const mobileMenuButton = document.querySelector(
+      "[data-mobile-menu-button]",
+    );
+    const mobileMenuButtonIcon = document.querySelector(
+      "[data-mobile-menu-button-icon]",
+    );
+
+    const defaultStyles =
+      "hidden h-full w-full flex-1 shrink-0 flex-col divide-y overflow-y-auto ring-0 lg:flex lg:w-max lg:flex-row lg:items-center lg:divide-y-0 lg:overflow-visible lg:pb-0";
+
+    const isOpen =
+      "absolute left-0 top-0 mt-16 flex min-h-dvh border-t bg-white px-4 shadow-lg w-full flex-1 shrink-0 flex-col divide-y overflow-y-auto ring-0 lg:flex lg:w-max lg:flex-row lg:items-center lg:divide-y-0 lg:overflow-visible lg:pb-0";
+
+    mobileMenuButton?.addEventListener("click", () => {
+      const navigationList = document.querySelector("[data-navigation-list]");
+
+      mobileMenuButtonIcon?.classList.toggle("ph-list");
+      mobileMenuButtonIcon?.classList.toggle("ph-x");
+
+      window.addEventListener("resize", () => {
+        let currentWidth = window.innerWidth;
+
+        if (currentWidth !== initialWidth) {
+          if (navigationList) {
+            navigationList.className = defaultStyles;
+            mobileMenuButtonIcon?.classList.add("ph-list");
+            mobileMenuButtonIcon?.classList.remove("ph-x");
+            initialWidth = currentWidth;
+            return;
+          }
+        }
+      });
+
+      if (navigationList) {
+        navigationList.className =
+          navigationList.className === isOpen ? defaultStyles : isOpen;
+        return;
+      }
+    });
+  </script>
+</header>

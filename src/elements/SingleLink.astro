@@ -1,0 +1,17 @@
+---
+import "@phosphor-icons/web/bold";
+
+const { label, href } = Astro.props;
+---
+
+<li class="py-4 lg:py-0">
+  <a
+    class="flex items-center justify-between gap-1 py-2 transition-colors duration-200 ease-in-out lg:px-2 lg:text-lg lg:leading-none lg:hover:text-blue-700"
+    href={href}
+  >
+    {label}
+
+    <i class="ph-bold ph-arrow-right shrink-0 text-base text-current lg:hidden"
+    ></i>
+  </a>
+</li>

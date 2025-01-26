@@ -1,0 +1,136 @@
+---
+import "@phosphor-icons/web/bold";
+
+const { navItem } = Astro.props;
+---
+
+<li class="group/dropdown py-4 lg:py-0">
+  <span
+    class="hidden cursor-pointer items-center gap-1 px-2 group-hover/dropdown:text-blue-700 hover:text-blue-700 lg:flex"
+  >
+    {navItem.linkLabel}
+    <i class="ph-bold ph-caret-down text-base text-current"></i>
+  </span>
+
+  <button
+    data-toggle-menu
+    class="flex w-full cursor-pointer items-center justify-between gap-1 py-2 group-hover/dropdown:text-blue-700 hover:text-blue-700 lg:hidden lg:px-3"
+  >
+    {navItem.linkLabel}{" "}
+
+    <i class="ph-bold ph-caret-down text-base text-current"></i>
+  </button>
+
+  <div
+    data-dropdown-menu-content
+    class="top-16 right-0 left-0 hidden bg-white lg:absolute lg:p-4 lg:shadow-lg lg:group-hover/dropdown:block lg:before:absolute lg:before:-top-5 lg:before:left-0 lg:before:block lg:before:h-5 lg:before:w-full"
+  >
+    <div class="mx-auto w-full xl:container">
+      <div class="grid pt-2 pb-4 lg:grid-cols-3 lg:gap-8">
+        {
+          navItem.dropdownSections.map((section: any) => {
+            return (
+              <div>
+                <h2 class="hidden border-b px-2 text-slate-600/70 lg:block">
+                  {section.sectionHeadline}
+                </h2>
+
+                <ul class="grid gap-1 lg:mt-4 lg:px-2">
+                  {section.sectionLinks.map((link: any) => {
+                    return (
+                      <li>
+                        <a
+                          href={link.linkHref}
+                          class="group/link flex min-h-16 items-center gap-4 rounded-lg transition hover:text-blue-700"
+                          target={link.isExternalLink ? "_blank" : "_self"}
+                        >
+                          {link.linkIcon && (
+                            <figure class="flex aspect-square size-12 items-center justify-center overflow-hidden rounded-lg bg-slate-100">
+                              <img
+                                class="flex h-full w-full object-cover object-center"
+                                src={link.linkIcon.src}
+                                alt={link.linkIcon.alt}
+                                width="40"
+                                height="40"
+                              />
+                            </figure>
+                          )}
+
+                          <div class="flex flex-1 flex-col">
+                            <span class="group/link flex items-center justify-between gap-1 leading-tight text-balance lg:justify-normal">
+                              {link.linkLabel}
+                              <i class="ph-bold ph-arrow-right shrink-0 text-base text-current transition-transform group-hover/link:translate-x-1" />
+                            </span>
+
+                            <p class="text-sm leading-tight text-balance text-slate-600">
+                              {link.linkDescription}
+                            </p>
+                          </div>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })
+        }
+
+        <a
+          href="#"
+          target="_blank"
+          class="group/demo relative row-start-2 mt-6 hidden aspect-4/3 h-full w-full overflow-hidden rounded-lg transition hover:opacity-85 lg:col-start-3 lg:row-start-auto lg:mt-0 lg:block"
+        >
+          <div
+            class="absolute top-0 bottom-0 flex flex-col justify-end bg-linear-to-t from-slate-800 to-slate-800/0 p-6 text-white"
+          >
+            <h3 class="flex items-center gap-1">
+              Demo buchen{" "}
+
+              <i
+                class="ph-bold ph-arrow-right shrink-0 text-base text-current transition-transform group-hover/demo:translate-x-1"
+              ></i>
+            </h3>
+
+            <p class="text-sm">
+              Wir betreuen Dich und Dein Team gerne. Während der Testphase
+              stehen wir Dir mit hilfreichen Vorlagen und einem persönlichen
+              Ansprechpartner zur Seite.
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</li>
+
+<script>
+  let initialWidth = window.innerWidth;
+
+  const mobileMenuButtons = document.querySelectorAll("[data-toggle-menu]");
+
+  mobileMenuButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const dropdownMenuContent = button.parentElement?.querySelector(
+        "[data-dropdown-menu-content]",
+      );
+      const mobileMenuButtonIcon = button.querySelector("i");
+
+      // if window width is changing, always close the dropdown
+      window.addEventListener("resize", () => {
+        let currentWidth = window.innerWidth;
+
+        if (currentWidth !== initialWidth) {
+          dropdownMenuContent?.classList.add("hidden");
+          mobileMenuButtonIcon?.classList.remove("rotate-180");
+          initialWidth = currentWidth;
+          return;
+        }
+      });
+
+      dropdownMenuContent?.classList.toggle("hidden");
+      mobileMenuButtonIcon?.classList.toggle("rotate-180");
+      return;
+    });
+  });
+</script>
